@@ -1,4 +1,4 @@
-# Streamlined Nexthop AI Frontend (Fixed Mode Crash, Larger Logo, Tight Layout)
+# Streamlined Nexthop AI Frontend (Refined Layout, Grok Background, Modern Input Styling)
 
 import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
@@ -17,7 +17,7 @@ if "mode" not in st.session_state:
 st.markdown("""
     <style>
         html, body {
-            background-color: #f4f4f4;
+            background-color: #ececec;
             font-family: 'Segoe UI', sans-serif;
             color: #111;
             margin: 0;
@@ -42,13 +42,13 @@ st.markdown("""
         .center-logo {
             display: flex;
             justify-content: center;
-            margin: 10px auto 0;
+            margin-top: 20px;
         }
 
         .mode-selector {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             margin: 10px auto 0;
         }
 
@@ -56,7 +56,7 @@ st.markdown("""
             background-color: white;
             border: 2px solid #ddd;
             border-radius: 10px;
-            padding: 12px 24px;
+            padding: 10px 20px;
             font-size: 15px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -70,8 +70,10 @@ st.markdown("""
         }
 
         .stTextArea textarea {
+            background-color: #fff !important;
             padding: 12px;
             font-size: 14px;
+            border-radius: 8px;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -79,7 +81,7 @@ st.markdown("""
 # --- Logo Centered ---
 st.markdown("""
     <div class='center-logo'>
-        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="260">
+        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="320">
     </div>
 """, unsafe_allow_html=True)
 
@@ -94,13 +96,10 @@ st.markdown(f"""
 
 # --- Mode Selector ---
 st.markdown("<div class='mode-selector'>", unsafe_allow_html=True)
-col1, col2 = st.columns([1, 1])
-with col1:
-    if st.button("🔍 Analyze CLI/Config"):
-        st.session_state.mode = "🔍 Analyze CLI/Config"
-with col2:
-    if st.button("⚙️ Generate Config from Intent"):
-        st.session_state.mode = "⚙️ Generate Config from Intent"
+if st.button("🔍 Analyze CLI/Config"):
+    st.session_state.mode = "🔍 Analyze CLI/Config"
+if st.button("⚙️ Generate Config from Intent"):
+    st.session_state.mode = "⚙️ Generate Config from Intent"
 st.markdown("</div>", unsafe_allow_html=True)
 
 # --- API credentials check ---
