@@ -23,7 +23,7 @@ def generate_config_from_intent(intent, api_key, project_id):
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a senior Cisco network engineer. Generate a best-practice Cisco IOS configuration based on the user's intent."},
+            {"role": "system", "content": "You are a senior Cisco network engineer. Generate a best-practice configuration based on the user's intent."},
             {"role": "user", "content": intent}
         ]
     )

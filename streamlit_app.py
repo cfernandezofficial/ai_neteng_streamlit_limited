@@ -1,4 +1,4 @@
-# Streamlined Nexthop AI Frontend (No Dark Mode, No Sidebar, Large Logo, Modern Mode Selector)
+# Streamlined Nexthop AI Frontend (Compact Layout, No Gaps)
 
 import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
@@ -15,51 +15,58 @@ st.markdown("""
             background-color: #f4f4f4;
             font-family: 'Segoe UI', sans-serif;
             color: #111;
+            margin: 0;
+            padding: 0;
         }
 
         header, footer { visibility: hidden; }
 
         .main-area {
-            padding: 40px;
+            padding: 20px 60px;
         }
 
         .card {
             background-color: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            max-width: 1000px;
-            margin: 30px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            max-width: 900px;
+            margin: 20px auto;
         }
 
         .center-logo {
             display: flex;
             justify-content: center;
-            margin-top: 30px;
+            margin: 10px auto 0;
         }
 
         .mode-selector {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 30px auto;
+            gap: 15px;
+            margin: 20px auto 0;
         }
 
         .mode-button {
             background-color: white;
             border: 2px solid #ddd;
-            border-radius: 12px;
-            padding: 16px 30px;
-            font-size: 16px;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-size: 15px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
         }
 
         .mode-button:hover, .mode-button.active {
             border-color: #3b82f6;
-            background-color: #eff6ff;
+            background-color: #e0edff;
             color: #1d4ed8;
+        }
+
+        .stTextArea textarea {
+            padding: 12px;
+            font-size: 14px;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -67,7 +74,7 @@ st.markdown("""
 # --- Logo Centered ---
 st.markdown("""
     <div class='center-logo'>
-        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="200">
+        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="180">
     </div>
 """, unsafe_allow_html=True)
 
@@ -75,7 +82,7 @@ st.markdown("<div class='main-area'>", unsafe_allow_html=True)
 
 # --- Usage Notice ---
 st.markdown(f"""
-<div class='card'>
+<div class='card' style='margin-top: 10px;'>
     <strong>Usage Notice:</strong> Free tier allows up to <strong>5 prompts per session</strong>. <em>({st.session_state.usage_count}/5 used)</em>
 </div>
 """, unsafe_allow_html=True)
@@ -107,7 +114,7 @@ if st.session_state.usage_count >= MAX_USES:
 if st.session_state.mode == "🔍 Analyze CLI/Config":
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("Paste CLI Output or Upload Config File")
-    cli_text = st.text_area("Paste output here (e.g., show run, show ip bgp):", height=250)
+    cli_text = st.text_area("Paste output here (e.g., show run, show ip bgp):", height=200)
     uploaded_file = st.file_uploader("Or upload a .txt config file", type=["txt"])
     if uploaded_file is not None:
         cli_text = uploaded_file.read().decode("utf-8")
@@ -130,7 +137,7 @@ if st.session_state.mode == "🔍 Analyze CLI/Config":
 elif st.session_state.mode == "⚙️ Generate Config from Intent":
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("Describe Desired Configuration")
-    intent = st.text_area("Example: 'Configure dual-WAN with BGP failover and VRFs'", height=200)
+    intent = st.text_area("Example: 'Configure dual-WAN with BGP failover and VRFs'", height=160)
 
     if st.button("⚙️ Generate Config"):
         if not intent.strip():
