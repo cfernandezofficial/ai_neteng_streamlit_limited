@@ -4,7 +4,17 @@ from prompts import analyze_cli_output, generate_config_from_intent
 import os
 
 st.set_page_config(page_title="AI Network Engineer Assistant", layout="wide")
-st.title("🤖 AI Network Engineer Assistant (Free Public Tool)")
+st.image("logo.png", width=120)
+# Branded Header Section
+st.markdown("""
+<div style='text-align: center; padding: 1rem 0;'>
+    <h1 style='font-size: 3em;'>🚀 Nexthop AI</h1>
+    <p style='font-size: 1.3em; color: #555;'>Your AI-Powered Network Engineer Assistant</p>
+</div>
+""", unsafe_allow_html=True)
+st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
+
+st.title("🤖 AI Network Engineer Assistant")
 
 # API credentials from Streamlit Secrets
 api_key = os.getenv("OPENAI_API_KEY")
