@@ -1,4 +1,4 @@
-# Streamlined Nexthop AI Frontend (Compact Layout, No Gaps)
+# Streamlined Nexthop AI Frontend (Fixed Mode Crash, Larger Logo, Tight Layout)
 
 import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
@@ -6,7 +6,12 @@ import os
 import base64
 
 st.set_page_config(page_title="Nexthop AI", layout="wide")
-st.session_state.setdefault("usage_count", 0)
+
+# --- Session Defaults ---
+if "usage_count" not in st.session_state:
+    st.session_state.usage_count = 0
+if "mode" not in st.session_state:
+    st.session_state.mode = "🔍 Analyze CLI/Config"
 
 # --- Styling ---
 st.markdown("""
@@ -31,7 +36,7 @@ st.markdown("""
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             max-width: 900px;
-            margin: 20px auto;
+            margin: 16px auto;
         }
 
         .center-logo {
@@ -44,7 +49,7 @@ st.markdown("""
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin: 20px auto 0;
+            margin: 10px auto 0;
         }
 
         .mode-button {
@@ -74,7 +79,7 @@ st.markdown("""
 # --- Logo Centered ---
 st.markdown("""
     <div class='center-logo'>
-        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="180">
+        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="260">
     </div>
 """, unsafe_allow_html=True)
 
@@ -88,14 +93,14 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # --- Mode Selector ---
-mode = st.session_state.get("mode", "🔍 Analyze CLI/Config")
 st.markdown("<div class='mode-selector'>", unsafe_allow_html=True)
-
-if st.button("🔍 Analyze CLI/Config", key="analyze_btn"):
-    st.session_state.mode = "🔍 Analyze CLI/Config"
-if st.button("⚙️ Generate Config from Intent", key="generate_btn"):
-    st.session_state.mode = "⚙️ Generate Config from Intent"
-
+col1, col2 = st.columns([1, 1])
+with col1:
+    if st.button("🔍 Analyze CLI/Config"):
+        st.session_state.mode = "🔍 Analyze CLI/Config"
+with col2:
+    if st.button("⚙️ Generate Config from Intent"):
+        st.session_state.mode = "⚙️ Generate Config from Intent"
 st.markdown("</div>", unsafe_allow_html=True)
 
 # --- API credentials check ---
