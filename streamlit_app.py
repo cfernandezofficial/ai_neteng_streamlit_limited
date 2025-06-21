@@ -3,18 +3,49 @@ import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
 import os
 
-st.set_page_config(page_title="AI Network Engineer Assistant", layout="wide")
-st.image("logo.png", width=120)
-# Branded Header Section
+st.set_page_config(page_title="Nexthop AI", layout="wide")
+
+# --- Custom CSS Styling ---
 st.markdown("""
-<div style='text-align: center; padding: 1rem 0;'>
-    <h1 style='font-size: 3em;'>🚀 Nexthop AI</h1>
-    <p style='font-size: 1.3em; color: #555;'>Your AI-Powered Network Engineer Assistant</p>
+    <style>
+        .main {background-color: #f8f9fa;}
+        h1 {color: #333333;}
+        .stButton button {background-color: #0052cc; color: white; font-weight: bold;}
+        .stRadio > div {padding: 5px 0;}
+        .custom-header {text-align: center; margin-bottom: 20px;}
+        hr {border: none; height: 1px; background-color: #ddd; margin: 30px 0;}
+        .upload-box {border: 1px solid #ccc; padding: 20px; background-color: #ffffff; border-radius: 8px;}
+    </style>
+""", unsafe_allow_html=True)
+
+# --- Branded Header Section ---
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.markdown("""
+    <div style='text-align: center; padding-top: 20px; padding-bottom: 10px;'>
+        <img src='https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png' alt='Nexthop AI Logo' width='220'>
+    </div>
+""", unsafe_allow_html=True)
+
+st.markdown("<hr>", unsafe_allow_html=True)
+
+st.markdown("""
+<div style="
+    background-color: #e8f0fe;
+    padding: 12px 20px;
+    border-left: 6px solid #1a73e8;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #202124;
+    margin-bottom: 20px;">
+    <strong>Usage Notice:</strong> Free tier allows up to <strong>5 prompts per session</strong>. <em>(0/5 used)</em>
 </div>
 """, unsafe_allow_html=True)
-st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
 
-st.title("🤖 AI Network Engineer Assistant")
+# --- Mode Selection ---
+mode = st.radio("Select mode:", ["🔍 Analyze CLI/Config", "⚙️ Generate Config from Intent"])
+
+st.markdown("<hr>", unsafe_allow_html=True)
 
 # API credentials from Streamlit Secrets
 api_key = os.getenv("OPENAI_API_KEY")
