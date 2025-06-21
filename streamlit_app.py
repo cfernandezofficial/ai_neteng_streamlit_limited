@@ -1,116 +1,114 @@
 import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
 import os
+import base64
 
 # --- Page config ---
 st.set_page_config(page_title="Nexthop AI", layout="wide")
 
-# --- State for chat sidebar toggle ---
+# --- State setup ---
 if "show_sidebar" not in st.session_state:
-    st.session_state.show_sidebar = False
+    st.session_state.show_sidebar = True
+if "dark_mode" not in st.session_state:
+    st.session_state.dark_mode = False
+if "current_section" not in st.session_state:
+    st.session_state.current_section = "chat"
 
-# --- Top navbar with logo and hamburger menu ---
-st.markdown("""
+# --- Styling ---
+dark_bg = "#111827" if st.session_state.dark_mode else "#fafafa"
+text_color = "#f9f9f9" if st.session_state.dark_mode else "#111"
+card_bg = "#1f2937" if st.session_state.dark_mode else "white"
+border_color = "#333" if st.session_state.dark_mode else "#e4e4e7"
+
+st.markdown(f"""
     <style>
-        header, footer {visibility: hidden;}
+        html, body {{
+            background-color: {dark_bg};
+            color: {text_color};
+            font-family: 'Segoe UI', sans-serif;
+        }}
 
-        .top-nav {
+        header, footer {{visibility: hidden;}}
+
+        .sidebar {{
             position: fixed;
             top: 0; left: 0;
-            width: 100%;
-            background-color: #ffffff;
-            border-bottom: 1px solid #e1e1e1;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 1000;
-        }
-
-        .top-nav .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .top-nav img {
-            height: 38px;
-            margin-left: 10px;
-        }
-
-        .hamburger {
-            font-size: 24px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: #333;
-        }
-
-        .block-container {
-            padding-top: 80px;
-        }
-
-        .sidebar-panel {
-            position: fixed;
-            top: 60px;
-            left: 0;
-            width: 250px;
+            width: 240px;
             height: 100%;
-            background-color: #f9f9f9;
-            border-right: 1px solid #ddd;
-            padding: 20px;
-            box-shadow: 2px 0 6px rgba(0,0,0,0.05);
-            z-index: 999;
-        }
+            background-color: {'#1e1e1e' if st.session_state.dark_mode else 'white'};
+            border-right: 1px solid {border_color};
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 1000;
+        }}
 
-        .sidebar-panel h4 {
-            margin-top: 0;
-        }
-
-        .usage-banner {
-            background-color: #e8f0fe;
-            padding: 12px 20px;
-            border-left: 5px solid #1a73e8;
-            border-radius: 8px;
+        .sidebar a {{
+            text-decoration: none;
+            color: {text_color};
             font-size: 15px;
-            color: #202124;
-            margin-top: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-    </style>
+        }}
 
-    <div class="top-nav">
-        <form method="post">
-            <button name="toggle_sidebar" class="hamburger">☰</button>
-        </form>
-        <div class="logo">
-            <img src='https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png' alt='Nexthop AI Logo'>
-        </div>
+        .sidebar a:hover {{
+            color: #3b82f6;
+            font-weight: 500;
+        }}
+
+        .sidebar input {{
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }}
+
+        .main-area {{
+            margin-left: 260px;
+            padding: 40px;
+        }}
+
+        .card {{
+            background-color: {card_bg};
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            max-width: 900px;
+            margin: auto;
+            color: {text_color};
+        }}
+    </style>
+""", unsafe_allow_html=True)
+
+# --- Sidebar Navigation ---
+st.markdown(f"""
+    <div class="sidebar">
+        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="120" style="margin-bottom: 10px;">
+        <input type="text" placeholder="Search Ctrl+K">
+        <a href="#" onclick="window.location.reload()">💬 Chat</a>
+        <a href="#" onclick="window.location.reload()">📦 Workspaces</a>
+        <a href="#" onclick="window.location.reload()">📂 History</a>
     </div>
 """, unsafe_allow_html=True)
 
-# --- Sidebar toggle logic ---
-if st.session_state.get("toggle_sidebar"):
-    st.session_state.show_sidebar = not st.session_state.show_sidebar
+# --- Main Content Wrapper ---
+st.markdown("<div class='main-area'>", unsafe_allow_html=True)
 
-if st.session_state.show_sidebar:
-    st.markdown("""
-        <div class="sidebar-panel">
-            <h4>🗂️ Chat History</h4>
-            <ul style="padding-left: 20px;">
-                <li>BGP Config Analysis</li>
-                <li>VRF + OMP Intent</li>
-                <li>IP SLA with Tracking</li>
-                <li>Site-to-Site VPN</li>
-            </ul>
-        </div>
-    """, unsafe_allow_html=True)
+# --- Dark Mode Toggle ---
+if st.toggle("🌓 Dark Mode", value=st.session_state.dark_mode):
+    st.session_state.dark_mode = True
+else:
+    st.session_state.dark_mode = False
 
 # --- Usage Banner ---
-st.markdown('<div class="usage-banner"><strong>Usage Notice:</strong> Free tier allows up to <strong>5 prompts per session</strong>. <em>(0/5 used)</em></div>', unsafe_allow_html=True)
+st.markdown(f"""
+    <div class='card' style='margin-bottom: 30px;'>
+        <strong>Usage Notice:</strong> Free tier allows up to <strong>5 prompts per session</strong>. <em>({st.session_state.usage_count}/5 used)</em>
+    </div>
+""", unsafe_allow_html=True)
 
 # --- Mode selection ---
-st.markdown("### ⚙️ Select Mode")
-mode = st.radio("", ["🔍 Analyze CLI/Config", "⚙️ Generate Config from Intent"])
+mode = st.radio("Select Mode", ["🔍 Analyze CLI/Config", "⚙️ Generate Config from Intent"], horizontal=True)
 
 st.markdown("---")
 
@@ -133,7 +131,8 @@ if st.session_state.usage_count >= MAX_USES:
 
 # --- CLI Analysis Mode ---
 if mode == "🔍 Analyze CLI/Config":
-    st.markdown("## Paste CLI Output or Upload Config File")
+    st.markdown(f"<div class='card'>", unsafe_allow_html=True)
+    st.subheader("Paste CLI Output or Upload Config File")
     cli_text = st.text_area("Paste output here (e.g., show run, show ip bgp):", height=250)
     uploaded_file = st.file_uploader("Or upload a .txt config file", type=["txt"])
 
@@ -150,9 +149,16 @@ if mode == "🔍 Analyze CLI/Config":
                 st.markdown("### 🔍 AI Analysis")
                 st.write(result)
 
+                # Export as .txt
+                b64 = base64.b64encode(result.encode()).decode()
+                href = f'<a href="data:file/txt;base64,{b64}" download="analysis.txt">💾 Download Analysis as .txt</a>'
+                st.markdown(href, unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
 # --- Intent-to-Config Mode ---
 elif mode == "⚙️ Generate Config from Intent":
-    st.markdown("## Describe Desired Configuration")
+    st.markdown(f"<div class='card'>", unsafe_allow_html=True)
+    st.subheader("Describe Desired Configuration")
     intent = st.text_area("Example: 'Configure dual-WAN with BGP failover and VRFs'", height=200)
 
     if st.button("⚙️ Generate Config"):
@@ -164,3 +170,12 @@ elif mode == "⚙️ Generate Config from Intent":
                 result = generate_config_from_intent(intent, api_key, project_id)
                 st.markdown("### 🛠️ Suggested Config")
                 st.code(result, language="bash")
+
+                # Export as .txt
+                b64 = base64.b64encode(result.encode()).decode()
+                href = f'<a href="data:file/txt;base64,{b64}" download="generated_config.txt">💾 Download Config as .txt</a>'
+                st.markdown(href, unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# --- Close main content wrapper ---
+st.markdown("</div>", unsafe_allow_html=True)
