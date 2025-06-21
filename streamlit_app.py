@@ -23,28 +23,6 @@ toggle = st.button("☰", key="menu_button", help="Toggle chat history")
 if toggle:
     st.session_state.show_sidebar = not st.session_state.show_sidebar
 
-if st.session_state.show_sidebar:
-    with st.container():
-        st.markdown("""
-            <div style="position: fixed; top: 0; left: 0; width: 300px; height: 100vh;
-                        background-color: #f1f3f4; padding: 20px; z-index: 998;
-                        box-shadow: 2px 0 8px rgba(0,0,0,0.15); overflow-y: auto;">
-                <h3>🗂️ Chat History</h3>
-        """, unsafe_allow_html=True)
-
-        # Example chat history list (replace this with real logic if needed)
-        fake_chat = [
-            "🔍 BGP Config Analysis",
-            "⚙️ Dual WAN Template",
-            "🔍 VRF Troubleshooting",
-            "⚙️ IP SLA Auto-Failover"
-        ]
-        for chat in fake_chat:
-            st.markdown(f"- {chat}")
-
-        st.markdown("</div>", unsafe_allow_html=True)
-
-
 
 st.set_page_config(page_title="Nexthop AI", layout="wide")
 
