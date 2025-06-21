@@ -65,7 +65,7 @@ if st.session_state.usage_count >= MAX_USES:
     st.warning("🚫 You've reached the usage limit for this session. Please refresh the page or come back later.")
     st.stop()
 
-if mode == "🧠 Analyze CLI/Config":
+if mode == "🔍 Analyze CLI/Config":
     st.subheader("Paste CLI Output or Upload Config File")
     cli_text = st.text_area("Paste output here (e.g., show run, show ip bgp):", height=250)
     uploaded_file = st.file_uploader("Or upload a .txt config file", type=["txt"])
