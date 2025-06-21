@@ -13,17 +13,21 @@ if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 if "current_section" not in st.session_state:
     st.session_state.current_section = "chat"
+if "usage_count" not in st.session_state:
+    st.session_state.usage_count = 0
 
 # --- Styling ---
-dark_bg = "#111827" if st.session_state.dark_mode else "#fafafa"
-text_color = "#f9f9f9" if st.session_state.dark_mode else "#111"
-card_bg = "#1f2937" if st.session_state.dark_mode else "white"
-border_color = "#333" if st.session_state.dark_mode else "#e4e4e7"
+base_bg = "#f4f4f4"  # Grok-like light gray background
+text_color = "#111"
+card_bg = "white"
+border_color = "#e4e4e7"
+
+margin_left = "260px" if st.session_state.show_sidebar else "0"
 
 st.markdown(f"""
     <style>
         html, body {{
-            background-color: {dark_bg};
+            background-color: {base_bg};
             color: {text_color};
             font-family: 'Segoe UI', sans-serif;
         }}
@@ -35,19 +39,23 @@ st.markdown(f"""
             top: 0; left: 0;
             width: 240px;
             height: 100%;
-            background-color: {'#1e1e1e' if st.session_state.dark_mode else 'white'};
+            background-color: white;
             border-right: 1px solid {border_color};
             padding: 20px 16px;
-            display: flex;
+            display: {'flex' if st.session_state.show_sidebar else 'none'};
             flex-direction: column;
             gap: 20px;
             z-index: 1000;
+            transition: all 0.3s ease;
         }}
 
         .sidebar a {{
             text-decoration: none;
             color: {text_color};
             font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }}
 
         .sidebar a:hover {{
@@ -64,18 +72,37 @@ st.markdown(f"""
         }}
 
         .main-area {{
-            margin-left: 260px;
+            margin-left: {margin_left};
             padding: 40px;
+            transition: margin-left 0.3s ease;
         }}
 
         .card {{
             background-color: {card_bg};
             padding: 30px;
-            border-radius: 12px;
+            border-radius: 16px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-            max-width: 900px;
+            max-width: 800px;
             margin: auto;
             color: {text_color};
+        }}
+
+        .chat-box {{
+            background-color: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            max-width: 700px;
+            margin: 60px auto 20px;
+        }}
+
+        .chat-options button {{
+            margin: 6px 6px 0 0;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 1px solid #ddd;
+            background-color: white;
+            cursor: pointer;
         }}
     </style>
 """, unsafe_allow_html=True)
@@ -85,13 +112,17 @@ st.markdown(f"""
     <div class="sidebar">
         <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="120" style="margin-bottom: 10px;">
         <input type="text" placeholder="Search Ctrl+K">
-        <a href="#" onclick="window.location.reload()">💬 Chat</a>
-        <a href="#" onclick="window.location.reload()">📦 Workspaces</a>
-        <a href="#" onclick="window.location.reload()">📂 History</a>
+        <a href="#">💬 Chat</a>
+        <a href="#">📁 Workspaces</a>
+        <a href="#">🕘 History</a>
     </div>
 """, unsafe_allow_html=True)
 
-# --- Main Content Wrapper ---
+# --- Sidebar toggle ---
+if st.button("☰ Toggle Sidebar"):
+    st.session_state.show_sidebar = not st.session_state.show_sidebar
+
+# --- Main content starts ---
 st.markdown("<div class='main-area'>", unsafe_allow_html=True)
 
 # --- Dark Mode Toggle ---
@@ -100,29 +131,28 @@ if st.toggle("🌓 Dark Mode", value=st.session_state.dark_mode):
 else:
     st.session_state.dark_mode = False
 
-# --- Usage Banner ---
+# --- Usage Notice ---
 st.markdown(f"""
-    <div class='card' style='margin-bottom: 30px;'>
-        <strong>Usage Notice:</strong> Free tier allows up to <strong>5 prompts per session</strong>. <em>({st.session_state.usage_count}/5 used)</em>
+<div class='card' style='margin-bottom: 30px;'>
+    <strong>Usage Notice:</strong> Free tier allows up to <strong>5 prompts per session</strong>. <em>({st.session_state.usage_count}/5 used)</em>
+</div>
+""", unsafe_allow_html=True)
+
+# --- Chat Box ---
+st.markdown("""
+    <div class='chat-box'>
+        <h4>What do you want to know?</h4>
     </div>
 """, unsafe_allow_html=True)
 
-# --- Mode selection ---
 mode = st.radio("Select Mode", ["🔍 Analyze CLI/Config", "⚙️ Generate Config from Intent"], horizontal=True)
-
-st.markdown("---")
 
 # --- API credentials check ---
 api_key = os.getenv("OPENAI_API_KEY")
 project_id = os.getenv("OPENAI_PROJECT_ID")
-
 if not api_key or not project_id:
     st.warning("Missing OpenAI credentials. Set OPENAI_API_KEY and OPENAI_PROJECT_ID in your environment.")
     st.stop()
-
-# --- Usage counter ---
-if "usage_count" not in st.session_state:
-    st.session_state.usage_count = 0
 
 MAX_USES = 5
 if st.session_state.usage_count >= MAX_USES:
@@ -155,7 +185,7 @@ if mode == "🔍 Analyze CLI/Config":
                 st.markdown(href, unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
-# --- Intent-to-Config Mode ---
+# --- Intent Mode ---
 elif mode == "⚙️ Generate Config from Intent":
     st.markdown(f"<div class='card'>", unsafe_allow_html=True)
     st.subheader("Describe Desired Configuration")
@@ -177,5 +207,5 @@ elif mode == "⚙️ Generate Config from Intent":
                 st.markdown(href, unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
-# --- Close main content wrapper ---
+# --- End main content ---
 st.markdown("</div>", unsafe_allow_html=True)
