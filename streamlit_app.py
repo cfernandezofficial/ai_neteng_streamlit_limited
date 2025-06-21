@@ -44,7 +44,7 @@ st.markdown("""
         .center-logo {
             display: flex;
             justify-content: center;
-            margin-top: -10;
+            margin-top: -20px;
             margin-bottom: 6px;
         }
 
