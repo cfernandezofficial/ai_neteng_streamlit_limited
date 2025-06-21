@@ -8,7 +8,7 @@ st.set_page_config(page_title="Nexthop AI", layout="wide")
 
 # --- State setup ---
 if "show_sidebar" not in st.session_state:
-    st.session_state.show_sidebar = True
+    st.session_state.show_sidebar = False
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 if "current_section" not in st.session_state:
@@ -22,7 +22,7 @@ text_color = "#111"
 card_bg = "white"
 border_color = "#e4e4e7"
 
-margin_left = "260px" if st.session_state.show_sidebar else "0"
+margin_left = "0"
 
 st.markdown(f"""
     <style>
@@ -36,17 +36,16 @@ st.markdown(f"""
 
         .sidebar {{
             position: fixed;
-            top: 0; left: 0;
-            width: 240px;
-            height: 100%;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 260px;
             background-color: white;
             border-right: 1px solid {border_color};
             padding: 20px 16px;
-            display: {'flex' if st.session_state.show_sidebar else 'none'};
-            flex-direction: column;
-            gap: 20px;
+            transform: translateX({ '0' if st.session_state.show_sidebar else '-100%' });
+            transition: transform 0.3s ease;
             z-index: 1000;
-            transition: all 0.3s ease;
         }}
 
         .sidebar a {{
@@ -72,9 +71,20 @@ st.markdown(f"""
         }}
 
         .main-area {{
-            margin-left: {margin_left};
             padding: 40px;
-            transition: margin-left 0.3s ease;
+        }}
+
+        .toggle-btn {{
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 6px 12px;
+            z-index: 1100;
+            cursor: pointer;
         }}
 
         .card {{
@@ -115,6 +125,11 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
+# --- Toggle Button ---
+st.markdown("""
+    <div class="toggle-btn" onclick="document.dispatchEvent(new CustomEvent('toggleSidebar'))">☰</div>
+""", unsafe_allow_html=True)
+
 # --- Sidebar Navigation ---
 st.markdown(f"""
     <div class="sidebar">
@@ -126,9 +141,18 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# --- Sidebar toggle ---
-if st.button("☰ Toggle Sidebar"):
-    st.session_state.show_sidebar = not st.session_state.show_sidebar
+# --- JS Handler ---
+st.markdown("""
+<script>
+    const streamlitEventHandler = () => {
+        const sidebarVisible = Streamlit.getSessionState()["show_sidebar"];
+        Streamlit.setComponentValue("show_sidebar", !sidebarVisible);
+        Streamlit.rerun();
+    };
+
+    document.addEventListener("toggleSidebar", streamlitEventHandler);
+</script>
+""", unsafe_allow_html=True)
 
 # --- Main content starts ---
 st.markdown("<div class='main-area'>", unsafe_allow_html=True)
