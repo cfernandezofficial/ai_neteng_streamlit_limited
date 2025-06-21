@@ -61,8 +61,6 @@ if "usage_count" not in st.session_state:
 
 MAX_USES = 5
 
-st.info(f"🆓 Free to use – up to {MAX_USES} prompts per session. ({st.session_state.usage_count}/{MAX_USES} used)")
-
 if st.session_state.usage_count >= MAX_USES:
     st.warning("🚫 You've reached the usage limit for this session. Please refresh the page or come back later.")
     st.stop()
