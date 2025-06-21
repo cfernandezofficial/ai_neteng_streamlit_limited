@@ -23,7 +23,7 @@ col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.markdown("""
     <div style='text-align: center; padding-top: 20px; padding-bottom: 10px;'>
-        <img src='https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png' alt='Nexthop AI Logo' width='220'>
+        <img src='https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png' alt='Nexthop AI Logo' width='300'>
     </div>
 """, unsafe_allow_html=True)
 
@@ -66,8 +66,6 @@ st.info(f"🆓 Free to use – up to {MAX_USES} prompts per session. ({st.sessio
 if st.session_state.usage_count >= MAX_USES:
     st.warning("🚫 You've reached the usage limit for this session. Please refresh the page or come back later.")
     st.stop()
-
-mode = st.radio("Select mode:", ["🧠 Analyze CLI/Config", "⚙️ Generate Config from Intent"])
 
 if mode == "🧠 Analyze CLI/Config":
     st.subheader("Paste CLI Output or Upload Config File")
