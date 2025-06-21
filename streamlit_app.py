@@ -1,4 +1,4 @@
-# Streamlined Nexthop AI Frontend (Fully Visible on Load)
+# Streamlined Nexthop AI Frontend (Pinned Top Layout)
 
 import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
@@ -28,31 +28,31 @@ st.markdown("""
         header, footer { visibility: hidden; }
 
         .main-area {
-            padding: 0px 16px 8px;
+            padding: 0px 16px 0px;
             max-width: 960px;
-            margin: auto;
+            margin: 0 auto;
         }
 
         .card {
             background-color: white;
-            padding: 12px;
+            padding: 10px;
             border-radius: 10px;
             box-shadow: 0 1px 6px rgba(0,0,0,0.04);
-            margin: 6px auto;
+            margin: 6px auto 4px;
         }
 
         .center-logo {
             display: flex;
             justify-content: center;
-            margin-top: 4px;
-            margin-bottom: 4px;
+            margin-top: 0;
+            margin-bottom: 6px;
         }
 
         .mode-selector {
             display: flex;
             justify-content: center;
             gap: 4px;
-            margin: 4px auto;
+            margin: 4px auto 2px;
         }
 
         .mode-button {
@@ -124,7 +124,7 @@ if st.session_state.usage_count >= MAX_USES:
 if st.session_state.mode == "🔍 Analyze CLI/Config":
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("Paste CLI Output or Upload Config File")
-    cli_text = st.text_area("Paste output here (e.g., show run, show ip bgp):", height=120)
+    cli_text = st.text_area("Paste output here (e.g., show run, show ip bgp):", height=100)
     uploaded_file = st.file_uploader("Or upload a .txt config file", type=["txt"])
     if uploaded_file is not None:
         cli_text = uploaded_file.read().decode("utf-8")
@@ -147,7 +147,7 @@ if st.session_state.mode == "🔍 Analyze CLI/Config":
 elif st.session_state.mode == "⚙️ Generate Config from Intent":
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("Describe Desired Configuration")
-    intent = st.text_area("Example: 'Configure dual-WAN with BGP failover and VRFs'", height=120)
+    intent = st.text_area("Example: 'Configure dual-WAN with BGP failover and VRFs'", height=100)
 
     if st.button("⚙️ Generate Config"):
         if not intent.strip():
