@@ -1,4 +1,4 @@
-# Streamlined Nexthop AI Frontend (Refined Layout, Grok Background, Modern Input Styling)
+# Streamlined Nexthop AI Frontend (Tighter Layout, Grok Styling)
 
 import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
@@ -27,40 +27,42 @@ st.markdown("""
         header, footer { visibility: hidden; }
 
         .main-area {
-            padding: 20px 60px;
+            padding: 10px 40px 20px;
         }
 
         .card {
             background-color: white;
-            padding: 20px;
+            padding: 16px;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            max-width: 900px;
-            margin: 16px auto;
+            max-width: 880px;
+            margin: 10px auto;
         }
 
         .center-logo {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .mode-selector {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin: 10px auto 0;
+            gap: 8px;
+            margin-top: -5px;
+            margin-bottom: 10px;
         }
 
         .mode-button {
             background-color: white;
             border: 2px solid #ddd;
             border-radius: 10px;
-            padding: 10px 20px;
+            padding: 10px 18px;
             font-size: 15px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
 
         .mode-button:hover, .mode-button.active {
@@ -81,7 +83,7 @@ st.markdown("""
 # --- Logo Centered ---
 st.markdown("""
     <div class='center-logo'>
-        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="320">
+        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="360">
     </div>
 """, unsafe_allow_html=True)
 
@@ -89,7 +91,7 @@ st.markdown("<div class='main-area'>", unsafe_allow_html=True)
 
 # --- Usage Notice ---
 st.markdown(f"""
-<div class='card' style='margin-top: 10px;'>
+<div class='card'>
     <strong>Usage Notice:</strong> Free tier allows up to <strong>5 prompts per session</strong>. <em>({st.session_state.usage_count}/5 used)</em>
 </div>
 """, unsafe_allow_html=True)
