@@ -1,4 +1,4 @@
-# Streamlined Nexthop AI Frontend (Tighter Layout, Grok Styling)
+# Streamlined Nexthop AI Frontend (Tight Top Layout)
 
 import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
@@ -27,42 +27,42 @@ st.markdown("""
         header, footer { visibility: hidden; }
 
         .main-area {
-            padding: 10px 40px 20px;
+            padding: 4px 30px 10px;
         }
 
         .card {
             background-color: white;
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            max-width: 880px;
-            margin: 10px auto;
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+            max-width: 860px;
+            margin: 8px auto;
         }
 
         .center-logo {
             display: flex;
             justify-content: center;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: 4px;
+            margin-bottom: 4px;
         }
 
         .mode-selector {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-top: -5px;
-            margin-bottom: 10px;
+            gap: 6px;
+            margin-top: 4px;
+            margin-bottom: 6px;
         }
 
         .mode-button {
             background-color: white;
             border: 2px solid #ddd;
             border-radius: 10px;
-            padding: 10px 18px;
+            padding: 8px 16px;
             font-size: 15px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
         }
 
         .mode-button:hover, .mode-button.active {
@@ -73,9 +73,9 @@ st.markdown("""
 
         .stTextArea textarea {
             background-color: #fff !important;
-            padding: 12px;
+            padding: 10px;
             font-size: 14px;
-            border-radius: 8px;
+            border-radius: 6px;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -83,7 +83,7 @@ st.markdown("""
 # --- Logo Centered ---
 st.markdown("""
     <div class='center-logo'>
-        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="360">
+        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="340">
     </div>
 """, unsafe_allow_html=True)
 
