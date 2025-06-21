@@ -96,6 +96,14 @@ st.markdown(f"""
             margin: 60px auto 20px;
         }}
 
+        .chat-box input {{
+            width: 100%;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }}
+
         .chat-options button {{
             margin: 6px 6px 0 0;
             padding: 10px 16px;
@@ -141,7 +149,7 @@ st.markdown(f"""
 # --- Chat Box ---
 st.markdown("""
     <div class='chat-box'>
-        <h4>What do you want to know?</h4>
+        <input type='text' placeholder='Paste CLI Output or Upload Config File' disabled>
     </div>
 """, unsafe_allow_html=True)
 
