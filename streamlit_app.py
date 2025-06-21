@@ -1,4 +1,4 @@
-# Streamlined Nexthop AI Frontend (Tight Top Layout)
+# Streamlined Nexthop AI Frontend (Fully Visible on Load)
 
 import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
@@ -22,21 +22,23 @@ st.markdown("""
             color: #111;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
 
         header, footer { visibility: hidden; }
 
         .main-area {
-            padding: 4px 30px 10px;
+            padding: 0px 16px 8px;
+            max-width: 960px;
+            margin: auto;
         }
 
         .card {
             background-color: white;
-            padding: 14px;
+            padding: 12px;
             border-radius: 10px;
-            box-shadow: 0 1px 8px rgba(0,0,0,0.05);
-            max-width: 860px;
-            margin: 8px auto;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+            margin: 6px auto;
         }
 
         .center-logo {
@@ -49,20 +51,18 @@ st.markdown("""
         .mode-selector {
             display: flex;
             justify-content: center;
-            gap: 6px;
-            margin-top: 4px;
-            margin-bottom: 6px;
+            gap: 4px;
+            margin: 4px auto;
         }
 
         .mode-button {
             background-color: white;
             border: 2px solid #ddd;
-            border-radius: 10px;
-            padding: 8px 16px;
-            font-size: 15px;
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
         }
 
         .mode-button:hover, .mode-button.active {
@@ -73,9 +73,13 @@ st.markdown("""
 
         .stTextArea textarea {
             background-color: #fff !important;
-            padding: 10px;
-            font-size: 14px;
+            padding: 8px;
+            font-size: 13px;
             border-radius: 6px;
+        }
+
+        section[data-testid="stSidebar"] {
+            display: none;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -83,7 +87,7 @@ st.markdown("""
 # --- Logo Centered ---
 st.markdown("""
     <div class='center-logo'>
-        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="340">
+        <img src="https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png" width="300">
     </div>
 """, unsafe_allow_html=True)
 
@@ -120,7 +124,7 @@ if st.session_state.usage_count >= MAX_USES:
 if st.session_state.mode == "🔍 Analyze CLI/Config":
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("Paste CLI Output or Upload Config File")
-    cli_text = st.text_area("Paste output here (e.g., show run, show ip bgp):", height=200)
+    cli_text = st.text_area("Paste output here (e.g., show run, show ip bgp):", height=120)
     uploaded_file = st.file_uploader("Or upload a .txt config file", type=["txt"])
     if uploaded_file is not None:
         cli_text = uploaded_file.read().decode("utf-8")
@@ -143,7 +147,7 @@ if st.session_state.mode == "🔍 Analyze CLI/Config":
 elif st.session_state.mode == "⚙️ Generate Config from Intent":
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("Describe Desired Configuration")
-    intent = st.text_area("Example: 'Configure dual-WAN with BGP failover and VRFs'", height=160)
+    intent = st.text_area("Example: 'Configure dual-WAN with BGP failover and VRFs'", height=120)
 
     if st.button("⚙️ Generate Config"):
         if not intent.strip():
