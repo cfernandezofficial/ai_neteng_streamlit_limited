@@ -3,68 +3,62 @@ import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
 import os
 
-# Initialize sidebar toggle state
+# --- Session state toggle for sidebar ---
 if "show_sidebar" not in st.session_state:
     st.session_state.show_sidebar = False
 
-# Hamburger menu icon (3-line button)
+# --- Top bar with hamburger + logo ---
 st.markdown("""
-    <div style="position: absolute; top: 20px; left: 20px; z-index: 999;">
-        <button onclick="window.location.reload()" style="
-            background-color: transparent;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;">☰</button>
+<style>
+    .topbar-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px 0 10px;
+    }
+    .hamburger {
+        font-size: 24px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+</style>
+<div class="topbar-container">
+    <div class="hamburger" onclick="window.location.reload()">☰</div>
+    <div>
+        <img src='https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png' alt='Nexthop AI Logo' width='150'>
     </div>
-""", unsafe_allow_html=True)
-
-# Manual workaround to toggle (reload workaround if needed)
-toggle = st.button("☰", key="menu_button", help="Toggle chat history")
-if toggle:
-    st.session_state.show_sidebar = not st.session_state.show_sidebar
-
-
-st.set_page_config(page_title="Nexthop AI", layout="wide")
-
-# --- Custom CSS Styling ---
-st.markdown("""
-    <style>
-        .main {background-color: #f8f9fa;}
-        h1 {color: #333333;}
-        .stButton button {background-color: #0052cc; color: white; font-weight: bold;}
-        .stRadio > div {padding: 5px 0;}
-        .custom-header {text-align: center; margin-bottom: 20px;}
-        hr {border: none; height: 1px; background-color: #ddd; margin: 30px 0;}
-        .upload-box {border: 1px solid #ccc; padding: 20px; background-color: #ffffff; border-radius: 8px;}
-    </style>
-""", unsafe_allow_html=True)
-
-# --- Branded Header Section ---
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    st.markdown("""
-<div style='text-align: center; margin-top: -150px; margin-bottom: -100px;'>
-    <img src='https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png' alt='Nexthop AI Logo' width='300'>
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<hr>", unsafe_allow_html=True)
-
+# --- Usage Notice Banner ---
 st.markdown("""
 <div style="
     background-color: #e8f0fe;
     padding: 12px 20px;
-    border-left: 6px solid #1a73e8;
-    border-radius: 6px;
+    border-left: 5px solid #1a73e8;
+    border-radius: 8px;
     font-size: 15px;
     color: #202124;
-    margin-bottom: 20px;">
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
     <strong>Usage Notice:</strong> Free tier allows up to <strong>5 prompts per session</strong>. <em>(0/5 used)</em>
 </div>
 """, unsafe_allow_html=True)
 
-# --- Mode Selection ---
-mode = st.radio("Select mode:", ["🔍 Analyze CLI/Config", "⚙️ Generate Config from Intent"])
+# --- Mode Selection with cleaner layout ---
+st.markdown("""
+<div style="
+    margin-top: 25px;
+    padding: 15px 25px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+""", unsafe_allow_html=True)
+
+mode = st.radio("**Select mode:**", ["🔍 Analyze CLI/Config", "⚙️ Generate Config from Intent"])
+
+st.markdown("</div>", unsafe_allow_html=True)
+
 
 st.markdown("<hr>", unsafe_allow_html=True)
 
