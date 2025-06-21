@@ -3,6 +3,27 @@ import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
 import os
 
+# Initialize sidebar toggle state
+if "show_sidebar" not in st.session_state:
+    st.session_state.show_sidebar = False
+
+# Hamburger menu icon (3-line button)
+st.markdown("""
+    <div style="position: absolute; top: 20px; left: 20px; z-index: 999;">
+        <button onclick="window.location.reload()" style="
+            background-color: transparent;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;">☰</button>
+    </div>
+""", unsafe_allow_html=True)
+
+# Manual workaround to toggle (reload workaround if needed)
+toggle = st.button("☰", key="menu_button", help="Toggle chat history")
+if toggle:
+    st.session_state.show_sidebar = not st.session_state.show_sidebar
+
+
 st.set_page_config(page_title="Nexthop AI", layout="wide")
 
 # --- Custom CSS Styling ---
