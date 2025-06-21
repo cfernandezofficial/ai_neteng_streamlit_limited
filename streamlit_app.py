@@ -22,9 +22,9 @@ st.markdown("""
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.markdown("""
-    <div style='text-align: center; padding-top: 20px; padding-bottom: 10px;'>
-        <img src='https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png' alt='Nexthop AI Logo' width='300'>
-    </div>
+<div style='text-align: center; margin-top: -150px; margin-bottom: -10px;'>
+    <img src='https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png' alt='Nexthop AI Logo' width='300'>
+</div>
 """, unsafe_allow_html=True)
 
 st.markdown("<hr>", unsafe_allow_html=True)
