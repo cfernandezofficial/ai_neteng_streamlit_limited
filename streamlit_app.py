@@ -1,54 +1,35 @@
 import streamlit as st
 
-# Set page config
+# Configure the page
 st.set_page_config(page_title="NextHop AI", layout="wide")
 
-# Inject Tailwind CSS via CDN
-st.markdown("""
-    <style>
-    @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
-    </style>
-""", unsafe_allow_html=True)
+# ---- Header ----
+with st.container():
+    cols = st.columns([1, 6, 3])
+    with cols[0]:
+        st.image("https://via.placeholder.com/25x25", width=25)
+    with cols[1]:
+        st.markdown("### NextHop AI")
+    with cols[2]:
+        st.markdown("<div style='text-align: right;'>"
+                    "<a href='#'>Home</a> &nbsp;&nbsp;&nbsp; "
+                    "<a href='#'>Tools</a> &nbsp;&nbsp;&nbsp; "
+                    "<a href='#'>Pricing</a>"
+                    "</div>", unsafe_allow_html=True)
 
-# Custom HTML
-st.markdown("""
-<div class="bg-gray-50 min-h-screen font-sans">
+st.markdown("---")
 
-    <!-- Header -->
-    <header class="flex justify-between items-center p-6 max-w-7xl mx-auto">
-        <div class="flex items-center gap-2">
-            <img src="https://via.placeholder.com/25x25" alt="Logo" class="h-6 w-6">
-            <span class="font-bold text-lg">NextHop AI</span>
-        </div>
-        <nav class="space-x-8 text-gray-800 font-medium">
-            <a href="#">Home</a>
-            <a href="#">Tools</a>
-            <a href="#">Pricing</a>
-        </nav>
-    </header>
+# ---- Hero Section ----
+with st.container():
+    col1, col2 = st.columns([1, 1])
 
-    <!-- Hero Section -->
-    <section class="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto p-6 lg:py-16">
-        <!-- Text -->
-        <div class="max-w-xl">
-            <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                <span class="text-pink-600">NextHop AI</span> – Your AI Assistant for Network Engineering
-            </h1>
-            <p class="text-gray-700 text-lg mb-6">
-                Analyze, generate, and streamline configurations with AI-powered tools built for modern network engineers.
-            </p>
-            <a href="#" class="inline-block px-6 py-3 bg-white border border-gray-300 rounded-lg shadow hover:shadow-md transition text-gray-900 font-medium">
-                Try Now →
-            </a>
-        </div>
+    with col1:
+        st.markdown("<h1 style='font-size: 42px;'>"
+                    "<span style='color:#ec4899;'>NextHop AI</span> – Your AI Assistant for Network Engineering"
+                    "</h1>", unsafe_allow_html=True)
+        st.markdown("Analyze, generate, and streamline configurations with AI-powered tools built for modern network engineers.")
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.button("Try Now")
 
-        <!-- Image -->
-        <div class="mt-10 lg:mt-0 lg:ml-16">
-            <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-                <img src="https://images.unsplash.com/photo-1556742044-3c52d6e88c62" alt="AI Engineer" class="w-[500px] h-[320px] object-cover">
-            </div>
-        </div>
-    </section>
-
-</div>
-""", unsafe_allow_html=True)
+    with col2:
+        st.image("https://images.unsplash.com/photo-1556742044-3c52d6e88c62", caption="AI Engineer")
