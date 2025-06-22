@@ -1,21 +1,22 @@
 import streamlit as st
 from supabase import create_client
 
-# --- Initialize Supabase ---
+# --- Display Logo at Top ---
+st.image("logo.png", width=300)  # Make sure 'logo.png' is in the root folder or adjust path
+
+# --- Supabase Setup ---
 supabase = create_client(
     st.secrets["SUPABASE_URL"],
     st.secrets["SUPABASE_KEY"]
 )
 
-# --- UI ---
-st.title("🔐 Login or Register")
-
+# --- Login/Register UI ---
 email = st.text_input("Email")
 password = st.text_input("Password", type="password")
 
 col1, col2 = st.columns(2)
 
-# --- LOGIN ---
+# --- LOGIN Button ---
 with col1:
     if st.button("🔓 Login"):
         try:
@@ -33,7 +34,7 @@ with col1:
         except Exception as e:
             st.error(f"❌ Login failed: {e}")
 
-# --- REGISTER ---
+# --- REGISTER Button ---
 with col2:
     if st.button("🆕 Register"):
         try:
