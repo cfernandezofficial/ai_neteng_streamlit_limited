@@ -4,36 +4,13 @@ import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
 import os
 import base64
-from supabase import create_client
-import streamlit as st
 
-# 🔐 Supabase credentials
-url = "https://bxmxfumbfsxnkzghubkk.supabase.co"
-key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4bXhmdW1iZnN4bmt6Z2h1YmtrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1NDkxODYsImV4cCI6MjA2NjEyNTE4Nn0.aasae_hSyqM6vGxovCYrRLQ4q3O7m5mxKftszfsNBsA"
+if "authenticated" not in st.session_state or not st.session_state.authenticated:
+    st.warning("🔒 You must log in first. Go to Login from the sidebar.")
+    st.stop()
 
-supabase = create_client(url, key)
+st.title("🔧 Welcome to NextHop AI – Full Access")
 
-# 🧠 Session state setup
-if "user" not in st.session_state:
-    st.session_state.user = None
-
-st.title("🔐 NextHop AI Login")
-
-email = st.text_input("Email")
-password = st.text_input("Password", type="password")
-
-if st.button("Sign In / Register"):
-    try:
-        user = supabase.auth.sign_in_with_password({"email": email, "password": password})
-        st.session_state.user = user
-        st.success("Logged in successfully!")
-    except Exception as e:
-        st.warning("Registering new user...")
-        supabase.auth.sign_up({"email": email, "password": password})
-        st.success("User registered. Try signing in.")
-
-
-st.set_page_config(page_title="Nexthop AI", layout="wide")
 
 # --- Session Defaults ---
 if "usage_count" not in st.session_state:
