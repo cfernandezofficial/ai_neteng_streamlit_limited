@@ -1,5 +1,5 @@
-import streamlit as st
 from supabase import create_client
+import streamlit as st
 
 # Setup Supabase
 supabase = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
@@ -10,12 +10,20 @@ password = st.text_input("Password", type="password")
 
 if st.button("Sign In / Register"):
     try:
+        # Try signing in
         user = supabase.auth.sign_in_with_password({"email": email, "password": password})
-        st.session_state.user = user.user
-        st.session_state.authenticated = True
-        st.success("✅ Logged in! Navigate to the app 👉 from the sidebar.")
-        st.experimental_rerun()  # optional to refresh session state
-    except Exception:
-        supabase.auth.sign_up({"email": email, "password": password})
-        st.success("🆕 Account created. Please log in.")
+        if user.user is not None:
+            st.session_state.user = user.user
+            st.session_state.authenticated = True
+            st.success("✅ Logged in! Navigate to the app 👉 from the sidebar.")
+            st.experimental_rerun()
+        else:
+            st.warning("😕 Login failed. Please check your credentials.")
+    except Exception as login_error:
+        # If login fails, try to sign up
+        try:
+            signup = supabase.auth.sign_up({"email": email, "password": password})
+            st.success("🆕 Account created. Please log in.")
+        except Exception as signup_error:
+            st.error("🚫 Unable to register. Email may already be used.")
 
