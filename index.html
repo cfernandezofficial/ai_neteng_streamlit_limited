@@ -12,51 +12,32 @@
       position: relative;
       overflow-x: hidden;
     }
-    .orb {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background-color: #7e22ce;
-      border-radius: 9999px;
-      opacity: 0.4;
-      animation: floatOrbs 15s linear infinite;
-    }
     .dot-train {
       position: absolute;
-      width: 8px;
-      height: 8px;
+      width: 4px;
+      height: 4px;
       background-color: #9333ea;
       border-radius: 9999px;
-      animation: trainMove 3s linear infinite;
-    }
-    @keyframes floatOrbs {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(100vh); }
+      animation: trainMove 8s linear infinite;
     }
     @keyframes trainMove {
-      0% { transform: translateX(-10vw) scale(1); opacity: 0.3; }
-      50% { transform: translateX(50vw) scale(1.3); opacity: 0.7; }
-      100% { transform: translateX(110vw) scale(1); opacity: 0.3; }
+      0% { transform: translateX(-10vw) scale(1); opacity: 0.2; }
+      50% { transform: translateX(50vw) scale(1.2); opacity: 0.5; }
+      100% { transform: translateX(110vw) scale(1); opacity: 0.2; }
     }
   </style>
 </head>
 <body class="text-gray-800">
   <script>
-    for (let i = 0; i < 100; i++) {
-      const orb = document.createElement('div');
-      orb.className = 'orb';
-      orb.style.left = `${Math.random() * 100}vw`;
-      orb.style.top = `${Math.random() * 100}vh`;
-      orb.style.animationDuration = `${10 + Math.random() * 10}s`;
-      document.body.appendChild(orb);
-    }
+    // Clear all other animations
+    document.querySelectorAll('.orb').forEach(el => el.remove());
 
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 40; i++) {
       const dot = document.createElement('div');
       dot.className = 'dot-train';
-      dot.style.top = `${80 + i * 10}px`;
-      dot.style.left = `-${i * 20}px`;
-      dot.style.animationDelay = `${i * 0.2}s`;
+      dot.style.top = `${Math.random() * 100}vh`;
+      dot.style.left = `-${Math.random() * 100}vw`;
+      dot.style.animationDelay = `${Math.random() * 8}s`;
       document.body.appendChild(dot);
     }
   </script>
