@@ -19,7 +19,7 @@ col1, col2 = st.columns(2)
 
 # --- LOGIN Button ---
 with col1:
-    if st.button("🔓 Login"):
+    if st.button("Login"):
         try:
             user = supabase.auth.sign_in_with_password({
                 "email": email,
@@ -37,7 +37,7 @@ with col1:
 
 # --- REGISTER Button ---
 with col2:
-    if st.button("🆕 Register"):
+    if st.button("Register"):
         try:
             user = supabase.auth.sign_up({
                 "email": email,
