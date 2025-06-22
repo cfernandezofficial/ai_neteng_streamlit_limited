@@ -2,7 +2,7 @@ from supabase import create_client
 import streamlit as st
 
 # Setup Supabase
-supabase = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
+supabase = create_client(st.secrets["https://bxmxfumbfsxnkzghubkk.supabase.co"], st.secrets["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4bXhmdW1iZnN4bmt6Z2h1YmtrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1NDkxODYsImV4cCI6MjA2NjEyNTE4Nn0.aasae_hSyqM6vGxovCYrRLQ4q3O7m5mxKftszfsNBsA"])
 
 # Login form
 email = st.text_input("Email")
