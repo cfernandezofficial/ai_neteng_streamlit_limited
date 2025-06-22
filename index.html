@@ -6,8 +6,43 @@
   <title>NextHop AI</title>
   <link rel="icon" type="image/png" href="logo.png">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: white;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .orb {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #7e22ce;
+      border-radius: 9999px;
+      opacity: 0.4;
+      animation: floatOrbs 15s linear infinite;
+    }
+    @keyframes floatOrbs {
+      0% {
+        transform: translateY(0px);
+      }
+      100% {
+        transform: translateY(100vh);
+      }
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="text-gray-800">
+  <script>
+    for (let i = 0; i < 100; i++) {
+      const orb = document.createElement('div');
+      orb.className = 'orb';
+      orb.style.left = `${Math.random() * 100}vw`;
+      orb.style.top = `${Math.random() * 100}vh`;
+      orb.style.animationDuration = `${10 + Math.random() * 10}s`;
+      document.body.appendChild(orb);
+    }
+  </script>
+
   <!-- Header -->
   <header class="flex justify-between items-center p-6 max-w-7xl mx-auto">
     <div class="flex items-center gap-3">
@@ -22,7 +57,7 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto p-6 lg:py-16">
+  <section class="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto px-6 py-16 gap-10">
     <div class="max-w-xl">
       <h1 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
         <span class="text-pink-600">NextHop AI</span> – Your AI Assistant for <br><span class="text-gray-900">Network Engineering</span>
@@ -34,18 +69,16 @@
         Try Now →
       </a>
     </div>
-    <div class="mt-10 lg:mt-0 lg:ml-16">
-      <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-        <img src="f1a374d5-f637-4eca-8766-2471989fb902.png" alt="Hero AI" class="w-[500px] h-[320px] object-cover" />
-      </div>
+    <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+      <img src="f1a374d5-f637-4eca-8766-2471989fb902.png" alt="Hero AI" class="w-[500px] h-[320px] object-cover" />
     </div>
   </section>
 
   <!-- Why Section -->
-  <section class="max-w-7xl mx-auto px-6 py-16">
-    <h2 class="text-3xl font-bold text-center text-pink-600 mb-12">Why NextHop AI?</h2>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+  <section class="max-w-7xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold text-center text-pink-600 mb-16">Why NextHop AI?</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+      <div class="rounded-2xl shadow-lg overflow-hidden">
         <img src="https://images.unsplash.com/photo-1642528045635-31a43d474880" alt="Why AI" class="w-full h-full object-cover">
       </div>
       <div class="bg-white rounded-2xl p-8 shadow-lg">
@@ -58,9 +91,9 @@
   </section>
 
   <!-- Tools Section -->
-  <section class="max-w-7xl mx-auto p-6">
-    <h2 class="text-3xl font-bold text-center text-pink-600 mb-12">Powerful AI Tools for Network Engineers</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <section class="max-w-7xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold text-center text-pink-600 mb-16">Powerful AI Tools for Network Engineers</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer">
         <div class="flex justify-center text-pink-600 text-3xl mb-4">🔍</div>
         <h3 class="text-xl font-semibold text-center mb-2">Config Analysis</h3>
