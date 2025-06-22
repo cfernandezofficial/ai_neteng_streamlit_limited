@@ -5,13 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NextHop AI</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: radial-gradient(circle at center, #f9f9ff 0%, #e0d6f8 100%);
+      overflow-x: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 9999px;
+      opacity: 0.3;
+      animation: float 10s ease-in-out infinite;
+    }
+    .orb1 {
+      width: 200px; height: 200px; background: #a855f7; top: 10%; left: 5%; animation-delay: 0s;
+    }
+    .orb2 {
+      width: 150px; height: 150px; background: #9333ea; top: 50%; left: 80%; animation-delay: 3s;
+    }
+    .orb3 {
+      width: 250px; height: 250px; background: #d946ef; top: 70%; left: 20%; animation-delay: 6s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+  </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 relative">
+  <!-- Animated Orbs -->
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
   <!-- Header -->
-  <header class="flex justify-between items-center p-6 max-w-7xl mx-auto">
-    <div class="flex items-center gap-2">
-      <img src="https://via.placeholder.com/25x25" alt="Logo" class="h-6 w-6" />
-      <span class="font-bold text-lg">NextHop AI</span>
+  <header class="flex justify-between items-center p-6 max-w-7xl mx-auto relative z-10">
+    <div class="flex items-center gap-3">
+      <img src="logo.png" alt="NextHop Logo" class="h-10 w-auto" />
+      <span class="font-bold text-xl text-gray-800">NEXTHOP.AI</span>
     </div>
     <nav class="space-x-8 text-gray-800 font-medium">
       <a href="index.html">Home</a>
@@ -21,7 +51,7 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto p-6 lg:py-16">
+  <section class="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto p-6 lg:py-16 relative z-10">
     <div class="max-w-xl">
       <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
         <span class="text-pink-600">NextHop AI</span> – Your AI Assistant for Network Engineering
@@ -41,7 +71,7 @@
   </section>
 
   <!-- Tools Section -->
-  <section class="max-w-7xl mx-auto p-6">
+  <section class="max-w-7xl mx-auto p-6 relative z-10">
     <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">
       <span class="text-pink-600">Powerful AI Tools</span> for Network Engineers
     </h2>
@@ -70,7 +100,7 @@
   </section>
 
   <!-- Footer -->
-  <footer class="text-center text-sm text-gray-500 py-8 border-t mt-12">
+  <footer class="text-center text-sm text-gray-500 py-8 border-t mt-12 relative z-10">
     © 2025 NextHop AI. Your AI assistant for network engineering.
   </footer>
 </body>
