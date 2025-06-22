@@ -8,116 +8,108 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background-color: #f4f4f5;
-      position: relative;
-      overflow-x: hidden;
+      background-color: #e9ddf9;
+      font-family: 'Courier New', monospace;
     }
     .dot-train {
       position: absolute;
-      width: 4px;
-      height: 4px;
+      width: 3px;
+      height: 3px;
       background-color: #9333ea;
-      border-radius: 9999px;
-      animation: trainMove 8s linear infinite;
+      border-radius: 50%;
+      animation: trainMove 10s linear infinite;
     }
     @keyframes trainMove {
-      0% { transform: translateX(-10vw) scale(1); opacity: 0.2; }
-      50% { transform: translateX(50vw) scale(1.2); opacity: 0.5; }
-      100% { transform: translateX(110vw) scale(1); opacity: 0.2; }
+      0% { transform: translateX(-10vw); opacity: 0.2; }
+      50% { transform: translateX(50vw); opacity: 0.6; }
+      100% { transform: translateX(110vw); opacity: 0.2; }
     }
   </style>
 </head>
-<body class="text-gray-800">
+<body class="text-black">
   <script>
-    // Clear all other animations
     document.querySelectorAll('.orb').forEach(el => el.remove());
-
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 50; i++) {
       const dot = document.createElement('div');
       dot.className = 'dot-train';
       dot.style.top = `${Math.random() * 100}vh`;
       dot.style.left = `-${Math.random() * 100}vw`;
-      dot.style.animationDelay = `${Math.random() * 8}s`;
+      dot.style.animationDelay = `${Math.random() * 10}s`;
       document.body.appendChild(dot);
     }
   </script>
 
-  <!-- Header -->
   <header class="flex justify-between items-center p-6 max-w-7xl mx-auto">
     <div class="flex items-center gap-3">
       <img src="logo.png" alt="NextHop Logo" class="h-12 w-auto" />
-      <span class="font-bold text-2xl text-gray-900">NextHop AI</span>
+      <span class="font-bold text-2xl">NextHop AI</span>
     </div>
-    <nav class="space-x-8 text-gray-900 font-medium">
+    <nav class="space-x-8 font-medium">
       <a href="index.html">Home</a>
       <a href="tools.html">Tools</a>
       <a href="pricing.html">Pricing</a>
     </nav>
   </header>
 
-  <!-- Hero Section -->
   <section class="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto px-6 py-16 gap-10">
     <div class="max-w-xl">
-      <h1 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-        <span class="text-pink-600">NextHop AI</span> – Your AI Assistant for <br><span class="text-gray-900">Network Engineering</span>
+      <h1 class="text-5xl font-bold mb-6 leading-tight">
+        <span class="text-pink-600">NextHop AI</span> – Your AI Assistant for <br>Network Engineering
       </h1>
-      <p class="text-gray-700 text-lg mb-6">
+      <p class="text-lg mb-6">
         Analyze, generate, and streamline configurations with AI-powered tools built for modern network engineers.
       </p>
-      <a href="#" class="inline-block px-6 py-3 bg-white border border-gray-300 rounded-lg shadow hover:shadow-md transition text-gray-900 font-medium">
-        Try Now →
+      <a href="#" class="inline-block px-6 py-3 border border-pink-600 text-pink-600 rounded-lg hover:bg-pink-100 transition">
+        Try Now ↗
       </a>
     </div>
-    <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-      <img src="https://images.unsplash.com/photo-1610386215394-56fc4ba2ff88?auto=format&fit=crop&w=870&q=80" alt="Hero AI" class="w-[500px] h-[320px] object-cover" />
+    <div class="rounded-full overflow-hidden shadow-lg border border-gray-300 w-[300px] h-[300px]">
+      <img src="https://images.unsplash.com/photo-1610386215394-56fc4ba2ff88?auto=format&fit=crop&w=500&q=80" alt="Hero AI" class="w-full h-full object-cover" />
     </div>
   </section>
 
-  <!-- Why Section -->
   <section class="max-w-7xl mx-auto px-6 py-20">
     <h2 class="text-3xl font-bold text-center text-pink-600 mb-16">Why NextHop AI?</h2>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-      <div class="rounded-2xl shadow-lg overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1633113214243-1eb8e95c6ae1?auto=format&fit=crop&w=870&q=80" alt="Why AI" class="w-full h-full object-cover">
+      <div class="rounded-full overflow-hidden w-[300px] h-[300px] mx-auto">
+        <img src="https://images.unsplash.com/photo-1633113214243-1eb8e95c6ae1?auto=format&fit=crop&w=500&q=80" alt="Why AI" class="w-full h-full object-cover">
       </div>
       <div class="bg-white rounded-2xl p-8 shadow-lg">
         <div class="border-l-4 border-pink-500 pl-4 mb-4"></div>
-        <p class="text-gray-700 text-lg">
+        <p class="text-lg">
           Whether you’re troubleshooting a large enterprise router or prototyping a new VLAN setup, <strong>NextHop AI</strong> boosts productivity by removing guesswork. Designed specifically for <em>networking professionals</em>, our tools blend deep domain expertise with cutting-edge language models.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Tools Section -->
   <section class="max-w-7xl mx-auto px-6 py-20">
     <h2 class="text-3xl font-bold text-center text-pink-600 mb-16">Powerful AI Tools for Network Engineers</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer">
         <div class="flex justify-center text-pink-600 text-3xl mb-4">🔍</div>
         <h3 class="text-xl font-semibold text-center mb-2">Config Analysis</h3>
-        <p class="text-gray-600 text-center">Upload or paste your network configs to receive instant AI-driven insights.</p>
+        <p class="text-center">Upload or paste your network configs to receive instant AI-driven insights.</p>
       </div>
       <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer">
         <div class="flex justify-center text-pink-600 text-3xl mb-4">⚙️</div>
         <h3 class="text-xl font-semibold text-center mb-2">Config Generation</h3>
-        <p class="text-gray-600 text-center">Input prompts to generate clean, optimized configuration files.</p>
+        <p class="text-center">Input prompts to generate clean, optimized configuration files.</p>
       </div>
       <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer">
         <div class="flex justify-center text-pink-600 text-3xl mb-4">🧠</div>
         <h3 class="text-xl font-semibold text-center mb-2">Networking Prompts</h3>
-        <p class="text-gray-600 text-center">Pre-built prompts designed for Cisco, Juniper, and other systems.</p>
+        <p class="text-center">Pre-built prompts designed for Cisco, Juniper, and other systems.</p>
       </div>
       <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer">
         <div class="flex justify-center text-pink-600 text-3xl mb-4">⬇️</div>
         <h3 class="text-xl font-semibold text-center mb-2">Downloadable Outputs</h3>
-        <p class="text-gray-600 text-center">Get your AI results as ready-to-use text files.</p>
+        <p class="text-center">Get your AI results as ready-to-use text files.</p>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="text-center text-sm text-gray-500 py-8 border-t mt-12">
+  <footer class="text-center text-sm py-8 border-t mt-12">
     © 2025 NextHop AI. Your AI assistant for network engineering.
   </footer>
 </body>
