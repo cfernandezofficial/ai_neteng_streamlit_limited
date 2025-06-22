@@ -1,5 +1,4 @@
 # Streamlined Nexthop AI Frontend (Pinned Top Layout)
-
 import streamlit as st
 from prompts import analyze_cli_output, generate_config_from_intent
 import os
