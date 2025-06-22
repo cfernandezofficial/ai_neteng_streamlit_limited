@@ -8,8 +8,8 @@ supabase = create_client(
 )
 
 # Login form
-st.image("https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png", width=200)
-st.header("🔐 Login")
+st.image("https://raw.githubusercontent.com/cfernandezofficial/ai_neteng_streamlit_limited/main/logo.png", width=300)
+st.header("Login")
 
 email = st.text_input("Email")
 password = st.text_input("Password", type="password")
