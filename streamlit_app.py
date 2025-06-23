@@ -4,7 +4,7 @@ from prompts import analyze_cli_output, generate_config_from_intent
 import os
 import base64
 
-st.title("🔧 Welcome to NextHop AI – Full Access")
+st.title("Welcome to NextHop AI")
 
 
 # --- Session Defaults ---
