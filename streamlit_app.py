@@ -4,10 +4,6 @@ from prompts import analyze_cli_output, generate_config_from_intent
 import os
 import base64
 
-if "authenticated" not in st.session_state or not st.session_state.authenticated:
-    st.warning("🔒 You must log in first. Go to Login from the sidebar.")
-    st.stop()
-
 st.title("🔧 Welcome to NextHop AI – Full Access")
 
 
